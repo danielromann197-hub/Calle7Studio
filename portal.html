@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portal Interno - Calle 7 Studio</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/portal.css" />
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+    <div id="loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; z-index: 9999; display: flex; justify-content: center; align-items: center; color: #fff;">
+        <h2>Cargando Sistema...</h2>
+    </div>
+
+    <div class="portal-layout" id="portalApp" style="display: none;">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <img src="assets/logo.png" alt="Calle 7 Studio">
+                <span class="role-badge" id="userRoleBadge">Cargando...</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-target="view-dashboard">
+                        <i class="fa-solid fa-house"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-target="view-tasks">
+                        <i class="fa-solid fa-list-check"></i> Tareas (Kanban)
+                    </a>
+                </li>
+                <li class="nav-item admin-only">
+                    <a href="#" class="nav-link" data-target="view-finances">
+                        <i class="fa-solid fa-chart-line"></i> Finanzas
+                    </a>
+                </li>
+                <li class="nav-item admin-only">
+                    <a href="#" class="nav-link" data-target="view-financing">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Financiamiento
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-target="view-clients">
+                        <i class="fa-solid fa-address-book"></i> Clientes
+                    </a>
+                </li>
+                <li class="nav-item admin-only">
+                    <a href="#" class="nav-link" data-target="view-users">
+                        <i class="fa-solid fa-users-gear"></i> Usuarios
+                    </a>
+                </li>
+            </ul>
+
+            <div class="user-controls">
+                <div class="user-info">
+                    <strong id="userNameDisplay">Usuario</strong>
+                </div>
+                <button class="btn-logout" id="logoutBtn" title="Cerrar Sesión">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            
+            <!-- DASHBOARD VIEW -->
+            <section id="view-dashboard" class="view-section active">
+                <div class="top-bar">
+                    <h1 class="page-title">Dashboard General</h1>
+                </div>
+                
+                <div class="dash-metrics-grid">
+                    <div class="dash-card">
+                        <div class="d-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="d-info">
+                            <span class="d-title">Total Tareas</span>
+                            <span class="d-value" id="dashVal1">0</span>
+                        </div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="d-icon" style="color: #00d2ff;"><i class="fa-solid fa-spinner"></i></div>
+                        <div class="d-info">
+                            <span class="d-title">En Progreso</span>
+                            <span class="d-value" id="dashVal2">0</span>
+                        </div>
+                    </div>
+                    <div class="dash-card admin-only">
+                        <div class="d-icon" style="color: #ff3366;"><i class="fa-solid fa-users"></i></div>
+                        <div class="d-info">
+                            <span class="d-title">Usuarios Activos</span>
+                            <span class="d-value" id="dashVal3">0</span>
+                        </div>
+                    </div>
+                    <div class="dash-card admin-only">
+                        <div class="d-icon" style="color: #00ff88;"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="d-info">
+                            <span class="d-title">Top Ingreso del Mes</span>
+                            <span class="d-value text-main" id="dashVal4">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-mid-section">
+                    <div class="dash-finance-summary admin-only">
+                        <div class="dash-f-header">
+                            <h3>Finanzas del Mes</h3>
+                        </div>
+                        <div class="dash-f-row">
+                            <i class="fa-solid fa-arrow-up positive"></i> Ingresos
+                            <span class="positive" id="dash-ingresos">$0.00</span>
+                        </div>
+                        <div class="dash-f-row">
+                            <i class="fa-solid fa-arrow-down negative"></i> Gastos
+                            <span class="negative" id="dash-egresos">$0.00</span>
+                        </div>
+                        <div class="dash-f-row dash-f-total">
+                            Balance
+                            <span class="text-main" id="dash-balance">$0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="dash-highlight admin-only">
+                        <h4>Recaudado Hoy</h4>
+                        <div class="highlight-val" id="dash-hoy">$0.00</div>
+                        <a href="#" class="highlight-btn" onclick="document.querySelector('[data-target=view-finances]').click()">Ver Finanzas <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="dash-bottom-grid">
+                    <div class="dash-table-box">
+                        <div class="chart-container-premium">
+                            <h3>Rendimiento Mensual</h3>
+                            <div style="position: relative; height: 300px; width: 100%;">
+                                <canvas id="financeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dash-links-box">
+                        <h3>Acceso Rápido</h3>
+                        <div class="quick-links">
+                            <button class="ql-btn" onclick="document.querySelector('[data-target=view-tasks]').click()"><i class="fa-solid fa-clipboard-list"></i><br>Kanban</button>
+                            <button class="ql-btn admin-only" onclick="document.querySelector('[data-target=view-finances]').click()"><i class="fa-solid fa-wallet"></i><br>Pagos</button>
+                            <button class="ql-btn admin-only" onclick="document.querySelector('[data-target=view-financing]').click()"><i class="fa-solid fa-hand-holding-dollar"></i><br>Financiamiento</button>
+                            <button class="ql-btn admin-only" id="btnDashNewTask"><i class="fa-solid fa-plus"></i><br>Crear Tarea</button>
+                        </div>
+
+                        <div class="dash-table-box mini-table" style="margin-top: 20px;">
+                            <h3>Últimas Tareas</h3>
+                            <table class="data-table">
+                                <tbody id="dashTasksList">
+                                    <!-- Tasks info injected here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TASKS VIEW -->
+            <section id="view-tasks" class="view-section">
+                <div class="trello-board-header">
+                    <input type="text" class="board-title-input" id="boardTitle" value="Mi tablero de Trello" spellcheck="false">
+                    <button class="trello-btn-vistas" id="btnVistasPopover">
+                        <i class="fa-solid fa-table-columns" style="font-size:12px;"></i> <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+                    </button>
+                </div>
+
+                <div class="kanban-board">
+                    <!-- Column: To Do -->
+                    <div class="kanban-column" id="col-todo" data-status="todo">
+                        <div class="k-col-header">
+                            <span class="list-title">POR HACER</span>
+                            <div class="k-col-actions">
+                                <span class="count-badge" id="count-todo">0</span>
+                                <button class="btn-list-action" onclick="window.openListActions(event, 'col-todo')"><i class="fa-solid fa-ellipsis"></i></button>
+                            </div>
+                        </div>
+                        <div class="k-col-content" id="list-todo">
+                            <!-- Tasks will be injected here -->
+                        </div>
+                        <button class="trello-add-card admin-only" onclick="showInlineComposer(this, 'todo')">
+                            <i class="fa-solid fa-plus"></i> Añade una tarjeta
+                        </button>
+                    </div>
+
+                    <!-- Column: In Progress -->
+                    <div class="kanban-column" id="col-progress" data-status="progress">
+                        <div class="k-col-header">
+                            <span class="list-title">EN PROGRESO</span>
+                            <div class="k-col-actions">
+                                <span class="count-badge" id="count-progress">0</span>
+                                <button class="btn-list-action" onclick="window.openListActions(event, 'col-progress')"><i class="fa-solid fa-ellipsis"></i></button>
+                            </div>
+                        </div>
+                        <div class="k-col-content" id="list-progress">
+                        </div>
+                        <button class="trello-add-card admin-only" onclick="showInlineComposer(this, 'progress')">
+                            <i class="fa-solid fa-plus"></i> Añade una tarjeta
+                        </button>
+                    </div>
+
+                    <!-- Column: Done -->
+                    <div class="kanban-column" id="col-done" data-status="done">
+                        <div class="k-col-header">
+                            <span class="list-title">TERMINADO</span>
+                            <div class="k-col-actions">
+                                <span class="count-badge" id="count-done">0</span>
+                                <button class="btn-list-action" onclick="window.openListActions(event, 'col-done')"><i class="fa-solid fa-ellipsis"></i></button>
+                            </div>
+                        </div>
+                        <div class="k-col-content" id="list-done">
+                        </div>
+                        <button class="trello-add-card admin-only" onclick="showInlineComposer(this, 'done')">
+                            <i class="fa-solid fa-plus"></i> Añade una tarjeta
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINANCES VIEW (Admin only) -->
+            <section id="view-finances" class="view-section admin-only">
+                <div class="top-bar">
+                    <h1 class="page-title">Control Financiero</h1>
+                    <h1 class="page-title"><i class="fa-solid fa-scale-balanced"></i> Finanzas</h1>
+                </div>
+
+                <div class="finance-controls">
+                    <div class="f-filters">
+                        <!-- Filters placeholder matching the image -->
+                        <select class="f-select"><option>Todos los meses</option></select>
+                        <div class="f-date-range">
+                            Desde: <input type="date" class="f-date"> 
+                            Hasta: <input type="date" class="f-date">
+                        </div>
+                    </div>
+                    <!-- Moved buttons to controls row logically -->
+                    <div class="f-buttons">
+                        <button class="btn-ingreso" id="btnNewIngreso"><i class="fa-solid fa-arrow-up"></i> Ingreso</button>
+                        <button class="btn-egreso" id="btnNewEgreso"><i class="fa-solid fa-arrow-down"></i> Egreso</button>
+                    </div>
+                </div>
+
+                <div class="finance-grid">
+                    <div class="finance-card glass-green">
+                        <div class="f-title"><i class="fa-solid fa-arrow-up"></i> Ingresos</div>
+                        <div class="f-amount positive" id="f-income">$0.00</div>
+                        <div class="f-sub" id="f-income-count">0 pagos</div>
+                    </div>
+                    <div class="finance-card glass-red">
+                        <div class="f-title"><i class="fa-solid fa-arrow-down"></i> Egresos</div>
+                        <div class="f-amount negative" id="f-expense">$0.00</div>
+                        <div class="f-sub" id="f-expense-count">0 gastos</div>
+                    </div>
+                    <div class="finance-card glass-yellow">
+                        <div class="f-title"><i class="fa-solid fa-scale-balanced"></i> Balance</div>
+                        <div class="f-amount text-main" id="f-balance">$0.00</div>
+                        <div class="f-sub" id="f-balance-status">Estado</div>
+                    </div>
+                </div>
+
+                <div class="finance-split-layout">
+                    <!-- INGRESOS -->
+                    <div class="f-col f-col-ingresos">
+                        <div class="f-col-header bg-green">
+                            DEBE (Ingresos)
+                        </div>
+                        <div class="data-table-container no-padding">
+                            <table class="data-table borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Concepto</th>
+                                        <th class="text-right">Monto</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionsListIngresos">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- EGRESOS -->
+                    <div class="f-col f-col-egresos">
+                        <div class="f-col-header bg-red">
+                            HABER (Egresos)
+                        </div>
+                        <div class="data-table-container no-padding">
+                            <table class="data-table borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Concepto</th>
+                                        <th class="text-right">Monto</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionsListEgresos">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINANCING VIEW (Admin only) -->
+            <section id="view-financing" class="view-section admin-only">
+                <div class="top-bar">
+                    <h1 class="page-title">Gestión de Financiamiento</h1>
+                    <button class="btn-primary" id="btnNewFinancing">
+                        <i class="fa-solid fa-plus"></i> Nuevo Financiamiento
+                    </button>
+                </div>
+
+                <div class="financing-stats-grid">
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Total en Créditos</span>
+                        <span class="f-stat-value" id="financingTotal">$0.00</span>
+                    </div>
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Cobrado</span>
+                        <span class="f-stat-value positive" id="financingCollected">$0.00</span>
+                    </div>
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Pendiente</span>
+                        <span class="f-stat-value negative" id="financingPending">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Concepto</th>
+                                <th>Monto Total</th>
+                                <th>Progreso</th>
+                                <th>Restante</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="financingList">
+                            <!-- Financing data injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CLIENTS VIEW -->
+            <section id="view-clients" class="view-section">
+                <div class="top-bar">
+                    <h1 class="page-title">Directorio de Clientes</h1>
+                    <button class="btn-primary" id="btnNewClient"><i class="fa-solid fa-plus"></i> Nuevo Cliente</button>
+                </div>
+
+                <div class="financing-stats-grid">
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Total Clientes</span>
+                        <span class="f-stat-value" id="clientCountTotal">0</span>
+                    </div>
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Activos</span>
+                        <span class="f-stat-value" id="clientCountActive" style="color: var(--positive);">0</span>
+                    </div>
+                    <div class="f-stat-card">
+                        <span class="f-stat-label">Prospectos</span>
+                        <span class="f-stat-value" id="clientCountLeads" style="color: var(--accent);">0</span>
+                    </div>
+                </div>
+
+                <div class="chart-container-premium">
+                    <div class="table-container">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre / Empresa</th>
+                                    <th>Contacto</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientsList">
+                                <!-- JS populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USERS VIEW (Admin only) -->
+            <section id="view-users" class="view-section admin-only">
+                <div class="top-bar">
+                    <h1 class="page-title">Gestión de Equipo</h1>
+                    <button class="btn-primary" id="btnNewUser">
+                        <i class="fa-solid fa-user-plus"></i> Añadir Usuario
+                    </button>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersList">
+                            <!-- Users injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Task Detail / Edit Modal -->
+    <div class="modal-overlay" id="modalTaskDetail">
+        <div class="modal-content trello-detail-modal">
+            <button class="close-modal trello-close" data-close="modalTaskDetail"><i class="fa-solid fa-xmark"></i></button>
+            <form id="formTaskEdit" class="trello-modal-grid">
+                <input type="hidden" id="editTaskId">
+                
+                <div class="trello-modal-main">
+                    <div class="trello-modal-header">
+                        <i class="fa-regular fa-circle icon-title"></i>
+                        <div class="trello-title-group">
+                            <input type="text" id="editTaskTitle" required class="trello-title-input">
+                            <div class="trello-badge-list" id="taskOriginList">
+                                <div class="tr-action-buttons">
+                                    <button type="button" class="tr-action-btn"><i class="fa-solid fa-plus"></i> Añadir</button>
+                                    <button type="button" class="tr-action-btn"><i class="fa-solid fa-tag" style="transform:rotate(90deg)"></i> Etiquetas</button>
+                                    <button type="button" class="tr-action-btn"><i class="fa-regular fa-clock"></i> Fechas</button>
+                                    <button type="button" class="tr-action-btn"><i class="fa-regular fa-square-check"></i> Checklist</button>
+                                    <button type="button" class="tr-action-btn"><i class="fa-regular fa-user"></i> Miembros</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="trello-modal-section">
+                        <h4 class="section-title"><i class="fa-solid fa-align-left"></i> Descripción</h4>
+                        <textarea id="editTaskDesc" class="trello-desc-input" rows="4" placeholder="Añadir una descripción más detallada..."></textarea>
+                    </div>
+
+                    <!-- Hidden old elements just to preserve logic JS behavior if required -->
+                    <div style="display:none;">
+                        <select id="editTaskAssignee"><option value="admin">User</option></select>
+                        <select id="editTaskPriority"><option value="medium">M</option></select>
+                        <input type="date" id="editTaskDueDate">
+                        <input type="radio" name="eColor" value="">
+                    </div>
+                </div>
+
+                <div class="trello-modal-sidebar">
+                    <div class="tr-sidebar-header">
+                        <i class="fa-regular fa-comment icon-title" style="margin-top:0;"></i>
+                        <h4 class="sidebar-title" style="margin:0; font-size:1rem;">Comentarios y Actividad</h4>
+                        <button type="button" class="tr-btn-light" style="margin-left:auto;">Mostrar detalles</button>
+                    </div>
+                    
+                    <div class="tr-comment-box" style="margin-bottom: 24px;">
+                        <div class="tr-comment-input-wrap">
+                            <textarea class="tr-comment-input" placeholder="Escribe un comentario..."></textarea>
+                        </div>
+                    </div>
+                    <div class="tr-activity-log">
+                        <div class="tr-log-item">
+                            <div class="tr-avatar-small">DR</div>
+                            <div class="tr-log-text">
+                                <strong>Daniel Roman</strong> ha añadido esta tarjeta a Hoy<br>
+                                <small>11 abr 2026, 23:14</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="sidebar-title" style="margin-top:24px;">Controles</h4>
+                    <button type="submit" class="trello-btn-sidebar"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+                    <button type="button" class="trello-btn-sidebar" id="btnGoogleCalendar"><i class="fa-regular fa-calendar-plus"></i> Google Calendar</button>
+                    <button type="button" class="trello-btn-sidebar" id="btnMarkDone" style="display: none;"><i class="fa-solid fa-check"></i> Mover a Terminado</button>
+                    <button type="button" class="trello-btn-sidebar btn-sidebar-danger admin-only" id="btnDeleteTask"><i class="fa-solid fa-minus"></i> Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Transaction Modal -->
+    <div class="modal-overlay" id="modalTransaction">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Movimiento</h3>
+                <button class="close-modal" data-close="modalTransaction"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formTransaction">
+                <div class="form-group">
+                    <label>Concepto</label>
+                    <input type="text" id="txConcept" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="txType">
+                        <option value="ingreso">Ingreso (+)</option>
+                        <option value="egreso">Egreso (-)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Monto</label>
+                    <input type="number" id="txAmount" step="0.01" min="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modalTransaction">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New User Modal -->
+    <div class="modal-overlay" id="modalUser">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Añadir Usuario</h3>
+                <button class="close-modal" data-close="modalUser"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formUser">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="uName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="uEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña Temporal</label>
+                    <input type="password" id="uPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Rol</label>
+                    <select id="uRole">
+                        <option value="empleado">Empleado</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modalUser">Cancelar</button>
+                    <button type="submit" class="btn-primary">Crear Cuenta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal-overlay" id="modalEditUser">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Usuario</h3>
+                <button class="close-modal" data-close="modalEditUser"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formEditUser">
+                <input type="hidden" id="editUid">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="editUName" required>
+                </div>
+                <div class="form-group">
+                    <label>Rol</label>
+                    <select id="editURole">
+                        <option value="empleado">Empleado</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    * El correo electrónico no se puede cambiar por seguridad de la cuenta.
+                </p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modalEditUser">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Financing Modal -->
+    <div class="modal-overlay" id="modalFinancing">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nuevo Plan de Financiamiento</h3>
+                <button class="close-modal" data-close="modalFinancing"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formFinancing">
+                <div class="form-group">
+                    <label>Nombre del Cliente</label>
+                    <input type="text" id="fnClient" required placeholder="Ej: Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label>Concepto del Servicio</label>
+                    <input type="text" id="fnConcept" required placeholder="Ej: Desarrollo Web E-commerce">
+                </div>
+                <div class="form-group">
+                    <label>Monto Total ($)</label>
+                    <input type="number" id="fnTotal" step="0.01" min="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Monto Pagado Inicial ($)</label>
+                    <input type="number" id="fnPaid" step="0.01" min="0" value="0">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modalFinancing">Cancelar</button>
+                    <button type="submit" class="btn-primary">Crear Plan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Client Modal -->
+    <div class="modal-overlay" id="modalClient">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registro de Nuevo Cliente</h3>
+                <button class="close-modal" data-close="modalClient"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formClient">
+                <div class="form-group">
+                    <label>Nombre o Empresa</label>
+                    <input type="text" id="clName" required placeholder="Ej: Tech Solutions S.A.">
+                </div>
+                <div class="form-group">
+                    <label>Persona de Contacto</label>
+                    <input type="text" id="clContact" required placeholder="Ej: Lic. Roberto Gómez">
+                </div>
+                <div class="form-group">
+                    <label>Email Corporativo</label>
+                    <input type="email" id="clEmail" required placeholder="cliente@empresa.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="clPhone" placeholder="+52 ...">
+                </div>
+                <div class="form-group">
+                    <label>Estado del Cliente</label>
+                    <select id="clStatus">
+                        <option value="lead">Prospecto</option>
+                        <option value="active">Activo</option>
+                        <option value="vip">VIP</option>
+                        <option value="inactive">Inactivo</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modalClient">Cancelar</button>
+                    <button type="submit" class="btn-primary">Registrar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPOVERS -->
+    <!-- Vistas Popover -->
+    <div class="trello-popover" id="vistasPopover">
+        <div class="popover-header">
+            <span class="popover-title">Vistas</span>
+            <button class="popover-close" id="closeVistasPopover"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="popover-hero-premium">
+            <span class="badge-premium">PREMIUM</span>
+            <h4>Visualiza el trabajo de una nueva forma</h4>
+            <p>Las vistas solo están disponibles en los Espacios de trabajo Premium.</p>
+        </div>
+        <div class="popover-content p-views">
+            <div class="popover-item active-view"><i class="fa-solid fa-table-columns"></i> Tablero</div>
+            <div class="popover-item"><i class="fa-solid fa-table"></i> Tabla</div>
+            <div class="popover-item"><i class="fa-regular fa-calendar"></i> Calendario</div>
+            <div class="popover-item"><i class="fa-solid fa-chart-pie"></i> Panel</div>
+            <div class="popover-item"><i class="fa-solid fa-bars-staggered"></i> Cronología</div>
+            <div class="popover-item"><i class="fa-solid fa-map-location-dot"></i> Mapa</div>
+        </div>
+    </div>
+
+    <!-- List Actions Popover -->
+    <div class="trello-popover list-actions-pop" id="listActionsPopover">
+        <div class="popover-header">
+            <span class="popover-title">Enumerar acciones</span>
+            <button class="popover-close" id="closeListActionsPopover"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="popover-content">
+            <div class="popover-item">Añadir tarjeta</div>
+            <div class="popover-item">Copiar lista</div>
+            <div class="popover-item">Mover lista</div>
+            <div class="popover-item">Mover todas las tarjetas de esta lista</div>
+            <div class="popover-item">Ordenar por...</div>
+            <div class="popover-item">Seguir</div>
+            <hr class="popover-divider">
+            
+            <div class="popover-section-header">
+                Cambiar color de lista <span class="badge-premium-outline">PREMIUM</span> <i class="fa-solid fa-chevron-up right-icon"></i>
+            </div>
+            <div class="list-color-picker-grid">
+                <div class="l-color lc-green" data-color="green"></div>
+                <div class="l-color lc-yellow" data-color="yellow"><i class="fa-solid fa-check cv"></i></div>
+                <div class="l-color lc-orange" data-color="orange"></div>
+                <div class="l-color lc-red" data-color="red"></div>
+                <div class="l-color lc-purple" data-color="purple"></div>
+                <div class="l-color lc-blue" data-color="blue"></div>
+                <div class="l-color lc-lightblue" data-color="lightblue"></div>
+                <div class="l-color lc-lightgreen" data-color="lightgreen"></div>
+                <div class="l-color lc-pink" data-color="pink"></div>
+                <div class="l-color lc-gray" data-color="gray"></div>
+            </div>
+            <div class="popover-btn-full">
+                <button class="remove-color-btn lc-default" data-color="default"><i class="fa-solid fa-xmark"></i> Quitar color</button>
+            </div>
+            
+            <hr class="popover-divider">
+            <div class="popover-section-header">
+                Automatización <i class="fa-solid fa-chevron-up right-icon"></i>
+            </div>
+            <div class="popover-item">Cuando se añada una tarjeta a la lista...</div>
+            <div class="popover-item">Todos los días, ordenar la lista por...</div>
+            <div class="popover-item">Todos los lunes, ordenar la lista por...</div>
+            <div class="popover-item">Crear una regla</div>
+
+            <hr class="popover-divider">
+            <div class="popover-item">Archivar esta lista</div>
+            <div class="popover-item">Archivar todas las tarjetas de esta lista</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script type="module" src="assets/firebase-config.js"></script>
+    <script type="module" src="assets/portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calle 7 Studio — Dominancia Digital</title>
+    <meta name="description"
+        content="No hacemos marketing. Hacemos que tu marca se sienta. Agencia creativa con actitud, estrategia y performance con impacto real." />
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Modern Bold Typography: Inter and Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+
+<body class="theme-dark">
+
+    <!-- HEADER / NAV -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Calle 7 Studio" height="40">
+            </a>
+
+            <nav class="nav">
+                <!-- Enlaces hacia las otras vistas -->
+                <a href="redes.html" class="nav-link">Redes</a>
+                <a href="web.html" class="nav-link">Páginas Web</a>
+                <a href="ecommerce.html" class="nav-link">E-commerce</a>
+                <a href="contacto.html" class="nav-link text-yellow">Contacto</a>
+            </nav>
+
+            <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. HERO -->
+        <section class="hero-urban">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1 class="hero-title">
+                    <span style="display:block; overflow:hidden;"><span class="reveal-inner" style="display:block;">NO HACEMOS MARKETING.</span></span>
+                    <span style="display:block; overflow:hidden;"><span class="reveal-inner highlight" style="display:block;">HACEMOS QUE TU MARCA SE SIENTA.</span></span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span style="display:block; overflow:hidden; padding-top: 5px;"><span class="reveal-inner" style="display:block;">Estrategia, contenido y performance con impacto real.</span></span>
+                </p>
+                <div class="hero-actions reveal-fade">
+                    <a href="https://wa.link/tq1m0w" class="btn-yellow">TRABAJAR CON NOSOTROS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BLOQUE DE GOLPE -->
+        <section class="golpe-block block-padding">
+            <div class="container layout-center">
+                <h2 class="golpe-title gs-reveal">NO SOMOS PARA TODOS.</h2>
+                <p class="golpe-subtext gs-reveal delay-1">
+                    Trabajamos con marcas que quieren crecer,<br>no solo verse bien.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. SERVICIOS -->
+        <section id="servicios" class="services-block block-padding bg-darker">
+            <div class="container">
+                <div class="grid-services">
+                    <a href="contacto.html" class="service-card gs-reveal" style="display:block; text-decoration:none;">
+                        <span class="svc-num">01</span>
+                        <h3>Estrategia</h3>
+                        <p>Dirección que convierte.</p>
+                        <i class="fa-solid fa-arrow-right icon-hover"></i>
+                    </a>
+                    <a href="contacto.html" class="service-card gs-reveal delay-1" style="display:block; text-decoration:none;">
+                        <span class="svc-num">02</span>
+                        <h3>Branding</h3>
+                        <p>Identidad que se queda.</p>
+                        <i class="fa-solid fa-arrow-right icon-hover"></i>
+                    </a>
+                    <a href="redes.html" class="service-card gs-reveal" style="display:block; text-decoration:none;">
+                        <span class="svc-num">03</span>
+                        <h3>Contenido</h3>
+                        <p>Presencia que se siente.</p>
+                        <i class="fa-solid fa-arrow-right icon-hover"></i>
+                    </a>
+                    <a href="redes.html" class="service-card gs-reveal delay-1" style="display:block; text-decoration:none;">
+                        <span class="svc-num">04</span>
+                        <h3>Ads</h3>
+                        <p>Inversión que regresa.</p>
+                        <i class="fa-solid fa-arrow-right icon-hover"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PORTAFOLIO -->
+        <section id="portafolio" class="portfolio-block">
+            <div class="portfolio-grid">
+                <a href="contacto.html" class="portfolio-item gs-reveal" style="display:block; text-decoration:none;">
+                    <!-- Placeholder using a dark gray box or the hero street if preferred -->
+                    <div class="p-img" style="background-image: url('assets/hero-street.jpg');"></div>
+                    <div class="p-overlay">
+                        <h3>IMPACTO VISUAL</h3>
+                        <p>Identidad</p>
+                    </div>
+                </a>
+                <a href="ecommerce.html" class="portfolio-item gs-reveal delay-1" style="display:block; text-decoration:none;">
+                    <div class="p-img" style="background-color: #1a1a1a;"></div>
+                    <div class="p-overlay">
+                        <h3>DOMINANCIA</h3>
+                        <p>E-commerce</p>
+                    </div>
+                </a>
+                <!-- Extend grid further out -->
+                <a href="contacto.html" class="portfolio-item gs-reveal" style="display:block; text-decoration:none;">
+                    <div class="p-img" style="background-color: #050505;"></div>
+                    <div class="p-overlay">
+                        <h3>ALTO RENDIMIENTO</h3>
+                        <p>Performance Ads</p>
+                    </div>
+                </a>
+                <a href="redes.html" class="portfolio-item gs-reveal delay-1" style="display:block; text-decoration:none;">
+                    <div class="p-img" style="background-image: url('assets/hero-street.jpg'); filter: grayscale(1);"></div>
+                    <div class="p-overlay">
+                        <h3>CULTURA</h3>
+                        <p>Contenido Orgánico</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 5. FILOSOFÍA -->
+        <section class="philosophy-block block-padding">
+            <div class="container">
+                <div class="manifesto-list">
+                    <div class="manifesto-item gs-reveal">
+                        <span class="m-light">NO SEGUIMOS TENDENCIAS.</span>
+                        <span class="m-bold">LAS HACEMOS.</span>
+                    </div>
+                    <div class="manifesto-item gs-reveal">
+                        <span class="m-light">NO PUBLICAMOS POR PUBLICAR.</span>
+                        <span class="m-bold">TODO TIENE INTENCIÓN.</span>
+                    </div>
+                    <div class="manifesto-item gs-reveal">
+                        <span class="m-light">NO ES CONTENIDO.</span>
+                        <span class="m-bold">ES PRESENCIA.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. PROCESO -->
+        <section id="proceso" class="process-block block-padding bg-darker">
+            <div class="container container-narrow">
+                <div class="process-list">
+                    <div class="process-item gs-reveal">
+                        <span class="process-num">01</span>
+                        <h3 class="process-name">ESTRATEGIA</h3>
+                    </div>
+                    <div class="process-item gs-reveal delay-1">
+                        <span class="process-num">02</span>
+                        <h3 class="process-name">PRODUCCIÓN</h3>
+                    </div>
+                    <div class="process-item gs-reveal delay-2">
+                        <span class="process-num">03</span>
+                        <h3 class="process-name">EJECUCIÓN</h3>
+                    </div>
+                    <div class="process-item gs-reveal delay-3">
+                        <span class="process-num">04</span>
+                        <h3 class="process-name">OPTIMIZACIÓN</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. RESULTADOS -->
+        <section class="results-block block-padding">
+            <div class="container layout-center">
+                <div class="results-grid">
+                    <h2 class="r-text gs-reveal">CRECIMIENTO REAL.</h2>
+                    <h2 class="r-text gs-reveal delay-1">IMPACTO MEDIBLE.</h2>
+                    <h2 class="r-text gs-reveal delay-2">MARCAS QUE SE NOTAN.</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CTA FINAL -->
+        <section id="cta-final" class="cta-final block-padding bg-yellow">
+            <div class="container layout-center">
+                <h2 class="cta-giant gs-reveal">TU MARCA PUEDE EXISTIR...<br>O PUEDE DOMINAR.</h2>
+                <a href="https://wa.link/tq1m0w" class="btn-black btn-huge gs-reveal delay-1">EMPEZAR PROYECTO</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" style="position: relative;">
+        <div class="container footer-inner layout-center">
+            <img src="assets/logo.png" alt="Calle 7 Studio" height="50" style="margin-bottom: 24px;">
+            <p class="copyright-text">Creatividad con calle • CDMX – LATAM<br>© 2026 Calle 7 Studio. Todos los derechos reservados.</p>
+            
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/calle7studio" target="_blank" class="social-circle"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/calle7studio/" target="_blank" class="social-circle"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://mx.linkedin.com/company/calle7studio" target="_blank" class="social-circle"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.tiktok.com/@calle7studio" target="_blank" class="social-circle"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="mailto:hola@calle7studio.com" class="social-circle"><i class="fa-regular fa-envelope"></i></a>
+            </div>
+        </div>
+        <a href="login.html" style="position: absolute; right: 15px; bottom: 15px; color: #333; font-size: 0.65rem; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; font-weight: 600;" onmouseover="this.style.color='#888'" onmouseout="this.style.color='#333'">Calle Admin</a>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Custom logic -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
